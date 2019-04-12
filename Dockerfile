@@ -1,3 +1,4 @@
+# vim:set ft=dockerfile:
 FROM centos:latest
 
 ENV MARIADB_MAJOR 10.2
@@ -40,8 +41,9 @@ RUN set -xe; \
 # don't reverse lookup hostnames, they are usually another container
 # && echo -e '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/my.cnf.d/docker.cnf
 
-COPY docker-entrypoint.sh /usr/local/bin/
+VOLUME /var/lib/mysql
 
+COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
  && mkdir -p /docker-entrypoint-initdb.d \
  && ln -s usr/local/bin/docker-entrypoint.sh /
