@@ -19,6 +19,7 @@ RUN set -xe; \
  && yum clean all -y \
  && yum makecache fast \
  && yum install -y \
+        net-tools \
         pwgen \
         MariaDB-server \
         MariaDB-client \
