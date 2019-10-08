@@ -1,5 +1,5 @@
 # vim:set ft=dockerfile:
-FROM centos:latest
+FROM centos:7
 
 ENV MARIADB_MAJOR 10.2
 RUN set -xe; \
