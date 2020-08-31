@@ -186,6 +186,15 @@ EOSQL
   fi
 fi
 
-set -- "$@" "--defaults-file=/etc/galera.cnf" "--wsrep_cluster_address=gcomm://${WSREP_CLUSTER_ADDRESS}"
+if [ -f /etc/galera.cnf ]; then
+  set -- "$@" "--defaults-file=/etc/galera.cnf"
+fi
 
+if [ -n "${PORT}" ]; then
+  set -- "$@" "--port=${PORT}"
+fi
+
+if [ -n "${WSREP_CLUSTER_ADDRESS}" ]; then
+  set -- "$@" "--wsrep_cluster_address=gcomm://${WSREP_CLUSTER_ADDRESS}"
+fi
 exec "$@"
