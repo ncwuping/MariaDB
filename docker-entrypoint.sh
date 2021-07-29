@@ -195,6 +195,10 @@ if [ -n "${PORT}" ]; then
 fi
 
 if [ -n "${WSREP_CLUSTER_ADDRESS}" ]; then
-  set -- "$@" "--wsrep_cluster_address=gcomm://${WSREP_CLUSTER_ADDRESS}"
+  [[ `hostname` =~ -([0-9]+)$ ]] || exit 1
+  ordinal=${BASH_REMATCH[1]}
+  if [[ $ordinal -ne 0 ]]; then
+    set -- "$@" "--wsrep_cluster_address=gcomm://${WSREP_CLUSTER_ADDRESS}"
+  fi
 fi
 exec "$@"
